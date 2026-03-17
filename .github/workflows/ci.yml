@@ -12,7 +12,7 @@ jobs:
   lint:
     runs-on: ubuntu-latest
     env:
-      GITHUB_TOKEN: ${{ secrets.GitHub_TOKEN }}
+      GITHUB_TOKEN: ${{ github.token }}
     steps:
       - name: Setup JS
         uses: zotero-plugin-dev/workflows/setup-js@main
@@ -22,7 +22,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     env:
-      GITHUB_TOKEN: ${{ secrets.GitHub_TOKEN }}
+      GITHUB_TOKEN: ${{ github.token }}
     steps:
       - name: Setup JS
         uses: zotero-plugin-dev/workflows/setup-js@main
@@ -42,3 +42,4 @@ jobs:
       - name: Setup JS
         uses: zotero-plugin-dev/workflows/setup-js@main
       - run: npm run test
+

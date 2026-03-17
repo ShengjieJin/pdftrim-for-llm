@@ -5,7 +5,7 @@
   "description": "Trim references and appendix pages from Zotero PDFs before sending them to LLMs.",
   "config": {
     "addonName": "PDFTrim for LLM",
-    "addonID": "pdftrim-for-llm@zotero-plugin.local",
+    "addonID": "pdftrim-for-llm@shengjiejin.github.io",
     "addonRef": "pdftrimllm",
     "addonInstance": "PDFTrimLLM",
     "prefsPrefix": "extensions.zotero.pdftrimllm"
@@ -62,3 +62,4 @@
     ]
   }
 }
+

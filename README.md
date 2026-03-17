@@ -5,7 +5,7 @@
   <p>Clean the paper. Keep the argument. Save the context window.</p>
   <p>
     <a href="README.md">English</a> |
-    <a href="README-zhCN.md">简体中文</a>
+    <a href="doc/README-zhCN.md">简体中文</a>
   </p>
 </div>
 
@@ -131,7 +131,7 @@ paper-appendix.pdf
 
 The source PDF is never modified.
 
-## 🛠️ ?Development
+## 🛠️ Development
 
 Requirements:
 
