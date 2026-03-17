@@ -164,11 +164,6 @@ This repository is already configured for:
 - `update.json` / `update-beta.json`
 - Zotero `.xpi` packaging
 
-If you later change the repository name, remember to update:
-
-- [`package.json`](package.json)
-- [`zotero-plugin.config.ts`](zotero-plugin.config.ts)
-
 ## ⚖️ License
 
 This project is released under `AGPL-3.0-or-later`.

@@ -3,6 +3,18 @@
   "type": "module",
   "version": "0.1.0",
   "description": "Trim references and appendix pages from Zotero PDFs before sending them to LLMs.",
+  "keywords": [
+    "zotero",
+    "zotero-plugin",
+    "pdf",
+    "pdf-split",
+    "llm",
+    "academic",
+    "research",
+    "reference-manager",
+    "vibe-reading",
+    "paper-reading"
+  ],
   "config": {
     "addonName": "PDFTrim for LLM",
     "addonID": "pdftrim-for-llm@shengjiejin.github.io",

@@ -164,11 +164,6 @@ npm run build
 - `update.json` / `update-beta.json`
 - Zotero `.xpi` 打包
 
-如果后续你修改仓库名，请同步更新：
-
-- [`package.json`](../package.json)
-- [`zotero-plugin.config.ts`](../zotero-plugin.config.ts)
-
 ## ⚖️ 许可协议
 
 本项目采用 `AGPL-3.0-or-later` 许可。
