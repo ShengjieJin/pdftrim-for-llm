@@ -1,0 +1,263 @@
+.pdf-split-tool {
+  --pdf-split-accent: #2f6fed;
+  --pdf-split-accent-soft: #edf4ff;
+  --pdf-split-border: color-mix(in srgb, var(--fill-secondary, #808080) 16%, white);
+  --pdf-split-border-strong: color-mix(in srgb, var(--pdf-split-accent) 22%, white);
+  --pdf-split-surface: #fff;
+  --pdf-split-surface-soft: #f7f9fc;
+  --pdf-split-text-muted: var(--fill-secondary, #667085);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 10px 0 6px;
+  font-family: "Segoe UI", "Microsoft YaHei UI", sans-serif;
+  color: var(--fill-primary, #222);
+}
+
+.pdf-split-tool__status {
+  padding: 11px 12px;
+  border-radius: 12px;
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--pdf-split-accent) 10%, white),
+    color-mix(in srgb, var(--pdf-split-accent) 4%, white)
+  );
+  border: 1px solid var(--pdf-split-border-strong);
+  box-shadow: 0 10px 26px -24px rgba(47, 111, 237, 0.7);
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.pdf-split-tool__status[data-status="error"] {
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, #d14343 10%, white),
+    color-mix(in srgb, #d14343 4%, white)
+  );
+  border-color: color-mix(in srgb, #d14343 28%, white);
+  box-shadow: none;
+}
+
+.pdf-split-tool__status[data-status="scanning"] {
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, #f29f05 12%, white),
+    color-mix(in srgb, #f29f05 4%, white)
+  );
+  border-color: color-mix(in srgb, #f29f05 30%, white);
+  box-shadow: none;
+}
+
+.pdf-split-tool__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.pdf-split-tool__meta-pill {
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: var(--pdf-split-accent-soft);
+  border: 1px solid var(--pdf-split-border-strong);
+  color: var(--pdf-split-accent);
+  font-size: 11px;
+  line-height: 1.3;
+}
+
+.pdf-split-tool__meta-pill[data-tone="muted"] {
+  background: var(--pdf-split-surface-soft);
+  border-color: var(--pdf-split-border);
+  color: var(--pdf-split-text-muted);
+}
+
+.pdf-split-tool__card {
+  padding: 12px;
+  border: 1px solid var(--pdf-split-border);
+  border-radius: 12px;
+  background: linear-gradient(180deg, var(--pdf-split-surface), var(--pdf-split-surface-soft));
+}
+
+.pdf-split-tool__card-title {
+  margin: 0 0 9px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--pdf-split-text-muted);
+}
+
+.pdf-split-tool__mode-group {
+  display: grid;
+  gap: 8px;
+}
+
+.pdf-split-tool__mode-option {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid var(--pdf-split-border);
+  background: rgba(255, 255, 255, 0.76);
+  font-size: 13px;
+}
+
+.pdf-split-tool__field-row {
+  display: grid;
+  gap: 6px;
+}
+
+.pdf-split-tool__field-row + .pdf-split-tool__field-row {
+  margin-top: 10px;
+}
+
+.pdf-split-tool__field-label {
+  font-size: 12px;
+  color: var(--pdf-split-text-muted);
+}
+
+.pdf-split-tool__field-controls {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 8px;
+}
+
+.pdf-split-tool__input,
+.pdf-split-tool__button {
+  min-height: 34px;
+  border-radius: 10px;
+  font-size: 13px;
+}
+
+.pdf-split-tool__input {
+  border: 1px solid color-mix(in srgb, var(--fill-secondary, #808080) 20%, white);
+  padding: 0 11px;
+  background: rgba(255, 255, 255, 0.92);
+}
+
+.pdf-split-tool__button {
+  border: 1px solid var(--pdf-split-border-strong);
+  background: var(--pdf-split-accent-soft);
+  color: var(--pdf-split-accent);
+  padding: 0 12px;
+  cursor: pointer;
+  transition:
+    background-color 140ms ease,
+    border-color 140ms ease,
+    transform 140ms ease,
+    box-shadow 140ms ease;
+}
+
+.pdf-split-tool__button:hover:enabled {
+  background: color-mix(in srgb, var(--pdf-split-accent) 14%, white);
+  transform: translateY(-1px);
+}
+
+.pdf-split-tool__button[data-variant="primary"] {
+  background: var(--pdf-split-accent);
+  border-color: var(--pdf-split-accent);
+  color: white;
+  box-shadow: 0 14px 28px -22px rgba(47, 111, 237, 0.8);
+}
+
+.pdf-split-tool__button[data-variant="primary"]:hover:enabled {
+  background: color-mix(in srgb, var(--pdf-split-accent) 88%, black);
+}
+
+.pdf-split-tool__button[data-variant="subtle"] {
+  min-width: 74px;
+  background: rgba(255, 255, 255, 0.85);
+  border-color: var(--pdf-split-border);
+  color: var(--fill-primary, #222);
+}
+
+.pdf-split-tool__button[data-variant="danger-subtle"] {
+  min-width: 74px;
+  background: color-mix(in srgb, #c24141 8%, white);
+  border-color: color-mix(in srgb, #c24141 22%, white);
+  color: #a12626;
+}
+
+.pdf-split-tool__button[data-variant="danger-subtle"]:hover:enabled {
+  background: color-mix(in srgb, #c24141 14%, white);
+}
+
+.pdf-split-tool__button[data-size="small"] {
+  min-height: 28px;
+  padding: 0 10px;
+  font-size: 12px;
+  border-radius: 9px;
+}
+
+.pdf-split-tool__button:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.pdf-split-tool__preview-list {
+  display: grid;
+  gap: 8px;
+}
+
+.pdf-split-tool__preview-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 10px;
+  align-items: center;
+  padding: 10px 11px;
+  border-radius: 11px;
+  background: rgba(255, 255, 255, 0.88);
+  border: 1px solid var(--pdf-split-border);
+}
+
+.pdf-split-tool__preview-summary {
+  min-width: 0;
+}
+
+.pdf-split-tool__preview-filename {
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.4;
+  word-break: break-word;
+}
+
+.pdf-split-tool__preview-range {
+  margin-top: 2px;
+  font-family: "Consolas", "Courier New", monospace;
+  font-size: 11px;
+  line-height: 1.5;
+  color: var(--pdf-split-text-muted);
+}
+
+.pdf-split-tool__preview-note,
+.pdf-split-tool__empty {
+  padding: 10px 11px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.78);
+  border: 1px dashed var(--pdf-split-border);
+  color: var(--pdf-split-text-muted);
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.pdf-split-tool__preview-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 10px;
+}
+
+.pdf-split-tool__errors {
+  margin: 0 0 10px;
+  padding-left: 18px;
+  color: #b42318;
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.pdf-split-tool__actions {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}

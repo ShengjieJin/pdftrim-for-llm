@@ -1,0 +1,11 @@
+<svg width="1200" height="760" viewBox="0 0 1200 760" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="760" rx="24" fill="#F4F8FB"/>
+  <rect x="40" y="40" width="1120" height="680" rx="18" fill="white" stroke="#D5E3EC" stroke-width="4"/>
+  <text x="600" y="112" text-anchor="middle" font-size="30" font-family="Arial, sans-serif" font-weight="700" fill="#1F2937">Detection Placeholder</text>
+  <rect x="130" y="170" width="940" height="120" rx="16" fill="#EEF6FB"/>
+  <rect x="130" y="330" width="940" height="120" rx="16" fill="#EEF6FB"/>
+  <rect x="130" y="490" width="940" height="120" rx="16" fill="#EEF6FB"/>
+  <text x="600" y="245" text-anchor="middle" font-size="26" font-family="Arial, sans-serif" fill="#2D3748">Show detected References / Appendix pages and Jump buttons</text>
+  <text x="600" y="405" text-anchor="middle" font-size="26" font-family="Arial, sans-serif" fill="#2D3748">A screenshot with manual adjustment fields works especially well</text>
+  <text x="600" y="565" text-anchor="middle" font-size="26" font-family="Arial, sans-serif" fill="#2D3748">Readers should immediately understand the review step</text>
+</svg>

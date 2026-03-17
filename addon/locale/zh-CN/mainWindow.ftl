@@ -1,0 +1,15 @@
+item-section-example1-head-text =
+    .label = PDFTrim for LLM: Item Info
+item-section-example1-sidenav-tooltip =
+    .tooltiptext = PDFTrim for LLM item info section
+item-section-example2-head-text =
+    .label = PDFTrim for LLM: Reader [{$status}]
+item-section-example2-sidenav-tooltip =
+    .tooltiptext = PDFTrim for LLM reader section
+item-section-example2-button-tooltip =
+    .tooltiptext = Unregister this section
+item-info-row-example-label = Example Row
+reader-section-title =
+    .label = PDFTrim for LLM [{$status}]
+reader-section-sidenav =
+    .tooltiptext = Trim references and appendix pages for this PDF

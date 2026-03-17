@@ -1,0 +1,13 @@
+<svg width="1600" height="900" viewBox="0 0 1600 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1600" height="900" rx="28" fill="#F7F4EE"/>
+  <rect x="40" y="40" width="1520" height="820" rx="24" fill="white" stroke="#D8D2C7" stroke-width="4"/>
+  <rect x="84" y="92" width="1432" height="80" rx="16" fill="#FFF4D6"/>
+  <circle cx="130" cy="132" r="12" fill="#F2994A"/>
+  <circle cx="170" cy="132" r="12" fill="#27AE60"/>
+  <circle cx="210" cy="132" r="12" fill="#2D9CDB"/>
+  <text x="800" y="145" text-anchor="middle" font-size="38" font-family="Arial, sans-serif" font-weight="700" fill="#1F2937">Demo Placeholder</text>
+  <rect x="110" y="220" width="1380" height="560" rx="24" fill="#FFFDF9" stroke="#E6DECF" stroke-width="4" stroke-dasharray="16 16"/>
+  <polygon points="720,430 720,570 850,500" fill="#F2994A"/>
+  <text x="800" y="635" text-anchor="middle" font-size="34" font-family="Arial, sans-serif" font-weight="700" fill="#374151">Replace this with a demo GIF or MP4</text>
+  <text x="800" y="688" text-anchor="middle" font-size="22" font-family="Arial, sans-serif" fill="#6B7280">Suggested: 20 to 40 seconds showing detect, review, split, and open result</text>
+</svg>
