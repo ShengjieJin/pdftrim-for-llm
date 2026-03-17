@@ -66,15 +66,13 @@ The plugin is designed to reduce repetitive work, not to replace human confirmat
 
 ## 🖼️ Screenshots
 
-
 | Automatically detects the **References** and **Appendices** sections in a PDF. | Click `Jump` to navigate directly to the detected page. If the result is not accurate enough, you can also adjust it manually. |
-| --- | --- |
-| ![Sidebar placeholder](doc/assets/1.png) | ![Detection placeholder](doc/assets/2.png) |
+| ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------ |
+| ![Sidebar placeholder](doc/assets/1.png)                                       | ![Detection placeholder](doc/assets/2.png)                                                                                     |
 
 | Click `Split PDF` to split the PDF in one step. Click `Open PDF` to open the generated split PDF directly. | After finishing your LLM workflow with the split main-content PDF, click `Delete Generated PDFs` to remove all generated PDF files in one click. |
-| --- | --- |
-| ![Preview placeholder](doc/assets/3.png) | ![Attachments placeholder](doc/assets/4.png) |
-
+| ---------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
+| ![Preview placeholder](doc/assets/3.png)                                                                   | ![Attachments placeholder](doc/assets/4.png)                                                                                                     |
 
 ## 📦 Installation
 
@@ -180,4 +178,3 @@ This project is released under `AGPL-3.0-or-later`.
 - [llm-for-zotero](https://github.com/yilewang/llm-for-zotero)
 - [Vibero](https://github.com/chenyu-xjtu/Vibero)
 - [zotero-plugin-template](https://github.com/windingwind/zotero-plugin-template)
-

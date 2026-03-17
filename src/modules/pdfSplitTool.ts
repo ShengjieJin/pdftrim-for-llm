@@ -253,7 +253,9 @@ function buildOutputFilename(base: string, suffix: SplitOutputSpec["suffix"]) {
 
 function getGeneratedSuffix(filename: string) {
   const match = filename.match(/-(main|reference|appendix)(?:-\d+)?\.pdf$/i);
-  return (match?.[1]?.toLowerCase() as SplitOutputSpec["suffix"] | undefined) || null;
+  return (
+    (match?.[1]?.toLowerCase() as SplitOutputSpec["suffix"] | undefined) || null
+  );
 }
 
 function escapeRegExp(value: string) {
@@ -474,7 +476,9 @@ function buildPageLines(
 
   for (const item of sortedItems) {
     const tolerance = Math.max(2, Math.min(6, item.fontSize * 0.35));
-    const row = rows.find((candidate) => Math.abs(candidate.y - item.y) <= tolerance);
+    const row = rows.find(
+      (candidate) => Math.abs(candidate.y - item.y) <= tolerance,
+    );
     if (row) {
       row.items.push(item);
       row.y = averageNumber(row.items.map((part) => part.y));
@@ -511,7 +515,9 @@ function buildPageLines(
         x: Math.min(...segment.map((part) => part.x)),
         y: averageNumber(segment.map((part) => part.y)),
         width: segment.reduce((sum, part) => sum + part.width, 0),
-        height: Math.max(...segment.map((part) => Math.max(part.height, part.fontSize))),
+        height: Math.max(
+          ...segment.map((part) => Math.max(part.height, part.fontSize)),
+        ),
         fontSize: medianNumber(segment.map((part) => part.fontSize)),
       });
       segment = [];
@@ -650,7 +656,9 @@ function lineLooksLikeAppendixHeading(line: PageLine, stats: PageStats) {
     return false;
   }
   return (
-    appendixKeywordPatterns.some((pattern) => pattern.test(line.normalizedText)) ||
+    appendixKeywordPatterns.some((pattern) =>
+      pattern.test(line.normalizedText),
+    ) ||
     /^([A-H]|[IVX]{1,4})(\.\d+)*[.)]?\s+[A-Z]/.test(line.text.trim()) ||
     /\b(?:implementation details?|proofs?|additional (?:results|experiments|ablations|analysis|details)|more results|supplementary material|reproducibility checklist|broader impact|limitations)\b/i.test(
       line.text,
@@ -667,7 +675,10 @@ function computeHangingIndentScore(page: PageSnapshot) {
   for (let index = 0; index < lines.length - 1; index += 1) {
     const current = lines[index];
     const next = lines[index + 1];
-    if (Math.abs(current.y - next.y) > Math.max(current.height, next.height) * 1.6) {
+    if (
+      Math.abs(current.y - next.y) >
+      Math.max(current.height, next.height) * 1.6
+    ) {
       continue;
     }
     if (next.x - current.x >= 10 && next.text.length >= 24) {
@@ -712,7 +723,9 @@ function getReferenceSignals(
   const text = page.fullText;
   const headingWindow = getHeadingWindow(page);
   const lineCount = Math.max(page.pageStats.lineCount, 1);
-  const refLikeLineCount = page.lines.filter(lineLooksLikeReferenceEntry).length;
+  const refLikeLineCount = page.lines.filter(
+    lineLooksLikeReferenceEntry,
+  ).length;
   const yearCount = countMatches(text, /\b(?:19|20)\d{2}\b/g);
   const yearTailCount = countMatches(text, /,\s(?:19|20)\d{2}[a-z]?\./g);
   const inlineCitationCount = countMatches(
@@ -727,10 +740,7 @@ function getReferenceSignals(
     text,
     /\b[a-z][a-z-]+,\s(?:[a-z]\.\s*){1,3}/g,
   );
-  const authorFullNames = countMatches(
-    text,
-    /\b[a-z][a-z-]+,\s[a-z][a-z-]+/g,
-  );
+  const authorFullNames = countMatches(text, /\b[a-z][a-z-]+,\s[a-z][a-z-]+/g);
   const authorListHints = countMatches(text, /\b(?:and|et al|in|url)\b/g);
   const authorLikeCount = authorInitials + authorFullNames;
   const refDensity = refLikeLineCount / lineCount;
@@ -748,10 +758,11 @@ function getReferenceSignals(
     pageNumber >= Math.max(3, Math.floor(pageCount * 0.65))
       ? 1
       : pageNumber >= Math.max(3, Math.floor(pageCount * 0.45))
-      ? 0.5
-      : 0;
+        ? 0.5
+        : 0;
   const inlinePenalty =
-    inlineCitationCount >= Math.max(4, refLikeLineCount * 2) && refDensity < 0.12
+    inlineCitationCount >= Math.max(4, refLikeLineCount * 2) &&
+    refDensity < 0.12
       ? 1.5
       : 0;
 
@@ -852,12 +863,14 @@ function getAppendixSignals(
   page: PageSnapshot,
   pageNumber: number,
   pageCount: number,
-) : AppendixSignals {
+): AppendixSignals {
   const headingWindow = getHeadingWindow(page);
   const referenceSignals = getReferenceSignals(page, pageNumber, pageCount);
   const headingLines = getHeadingLines(page);
   const hasHeading = headingLines.some((line) =>
-    appendixKeywordPatterns.some((pattern) => pattern.test(line.normalizedText)),
+    appendixKeywordPatterns.some((pattern) =>
+      pattern.test(line.normalizedText),
+    ),
   );
   const sectionPattern = headingLines.some((line) =>
     /^([A-H]|[IVX]{1,4})(\.\d+)*[.)]?\s+[A-Z]/.test(line.text.trim()),
@@ -873,8 +886,8 @@ function getAppendixSignals(
     pageNumber >= Math.max(3, Math.floor(pageCount * 0.7))
       ? 1
       : pageNumber >= Math.max(3, Math.floor(pageCount * 0.45))
-      ? 0.5
-      : 0;
+        ? 0.5
+        : 0;
   const refPenalty = clampNumber(
     referenceSignals.refDensity * 3 + referenceSignals.score * 0.25,
     0,
@@ -994,17 +1007,25 @@ function detectReferenceBlock(pages: PageSnapshot[]): ReferenceBlock {
   for (let index = 0; index < pageCount; index += 1) {
     const pageNumber = index + 1;
     const signal = signals[index];
-    const stableNeighborCount = [signal, signals[index + 1], signals[index + 2]].filter(
+    const stableNeighborCount = [
+      signal,
+      signals[index + 1],
+      signals[index + 2],
+    ].filter(
       (candidate) =>
         candidate &&
-        (candidate.score >= 3 || candidate.refDensity >= 0.14 || candidate.hasHeading),
+        (candidate.score >= 3 ||
+          candidate.refDensity >= 0.14 ||
+          candidate.hasHeading),
     ).length;
     const lateEnough = pageNumber >= Math.max(3, Math.floor(pageCount * 0.35));
     if (!lateEnough) {
       continue;
     }
     if (
-      (signal.hasHeading && windowScores[index] >= 4.5 && stableNeighborCount >= 2) ||
+      (signal.hasHeading &&
+        windowScores[index] >= 4.5 &&
+        stableNeighborCount >= 2) ||
       (windowScores[index] >= 4.75 && stableNeighborCount >= 2)
     ) {
       startPage = pageNumber;
@@ -1039,8 +1060,7 @@ function detectReferenceBlock(pages: PageSnapshot[]): ReferenceBlock {
       windowScores[index] >= 3.5;
     const nextSignals = signals[index + 1];
     const nextContinuation = Boolean(
-      nextSignals &&
-        (nextSignals.score >= 3 || nextSignals.refDensity >= 0.14),
+      nextSignals && (nextSignals.score >= 3 || nextSignals.refDensity >= 0.14),
     );
 
     if (
@@ -1051,11 +1071,20 @@ function detectReferenceBlock(pages: PageSnapshot[]): ReferenceBlock {
       break;
     }
 
-    if (hasReferenceSignalDrop(previousSignals, referenceSignals, appendixSignals.score)) {
+    if (
+      hasReferenceSignalDrop(
+        previousSignals,
+        referenceSignals,
+        appendixSignals.score,
+      )
+    ) {
       break;
     }
 
-    if (currentContinuation || (nextContinuation && referenceSignals.score >= 1.5)) {
+    if (
+      currentContinuation ||
+      (nextContinuation && referenceSignals.score >= 1.5)
+    ) {
       endPage = pageNumber;
       previousSignals = referenceSignals;
       continue;
@@ -1067,8 +1096,11 @@ function detectReferenceBlock(pages: PageSnapshot[]): ReferenceBlock {
   return {
     startPage,
     endPage,
-    startRatio: getBoundaryRatio(pages[startPage - 1], (line, stats) =>
-      isStrongReferenceHeading(line, stats) || lineLooksLikeReferenceEntry(line),
+    startRatio: getBoundaryRatio(
+      pages[startPage - 1],
+      (line, stats) =>
+        isStrongReferenceHeading(line, stats) ||
+        lineLooksLikeReferenceEntry(line),
     ),
   };
 }
@@ -1091,7 +1123,8 @@ function detectSectionStart(
   const patterns = buildKeywordPatterns(keywords);
 
   for (let index = startIndex; index < pages.length; index += 1) {
-    const sample = `${pages[index].topText} ${pages[index].fullText.slice(0, maxChars)}`.trim();
+    const sample =
+      `${pages[index].topText} ${pages[index].fullText.slice(0, maxChars)}`.trim();
     if (
       patterns.some((pattern) => pattern.test(sample)) ||
       options.detector?.(pages[index], index + 1, pages.length)
@@ -1185,7 +1218,11 @@ function detectAppendixStart(
   const startIndex = Math.max(0, Math.floor(pageCount * 0.35) - 1);
   for (let index = startIndex; index < pageCount; index += 1) {
     const signal = signals[index];
-    const stableNeighbors = [signal, signals[index + 1], signals[index + 2]].filter(
+    const stableNeighbors = [
+      signal,
+      signals[index + 1],
+      signals[index + 2],
+    ].filter(
       (candidate) =>
         candidate &&
         (candidate.score >= 3 ||
@@ -1234,16 +1271,10 @@ function detectBackMatter(pages: PageSnapshot[]): DetectResult {
   const confidence =
     confidencePage && firstBackMatterPage
       ? firstBackMatterPage === referenceStartPage
-        ? getReferenceSignals(
-            confidencePage,
-            firstBackMatterPage,
-            pages.length,
-          ).score
-        : getAppendixSignals(
-            confidencePage,
-            firstBackMatterPage,
-            pages.length,
-          ).score
+        ? getReferenceSignals(confidencePage, firstBackMatterPage, pages.length)
+            .score
+        : getAppendixSignals(confidencePage, firstBackMatterPage, pages.length)
+            .score
       : 0;
 
   return {
@@ -1291,10 +1322,7 @@ async function scanItem(item: Zotero.Item, state: ReaderSplitState) {
   }
 }
 
-function buildDetectionMessage(
-  detection: DetectResult,
-  pageCount: number,
-) {
+function buildDetectionMessage(detection: DetectResult, pageCount: number) {
   if (!detection.referenceStartPage && !detection.appendixStartPage) {
     return getString("tool-status-not-found", {
       args: { pageCount },
@@ -1310,7 +1338,10 @@ function buildDetectionMessage(
   });
 }
 
-function buildPreview(item: Zotero.Item, state: ReaderSplitState): PreviewResult {
+function buildPreview(
+  item: Zotero.Item,
+  state: ReaderSplitState,
+): PreviewResult {
   const plan = buildSplitPlan(item, state);
   const notes: string[] = [];
   if (state.mode === "sections" && !state.referencePageInput.trim()) {
@@ -1348,7 +1379,10 @@ function buildSplitPlan(item: Zotero.Item, state: ReaderSplitState): SplitPlan {
   const appendixPage = parsePageInput(state.appendixPageInput);
   const pageCount = state.pageCount;
   const name = basename(item);
-  const manualFirstBackMatterPage = minPositiveNumber(referencePage, appendixPage);
+  const manualFirstBackMatterPage = minPositiveNumber(
+    referencePage,
+    appendixPage,
+  );
   const usesDetectedPages =
     (referencePage || null) === state.detectedReferencePage &&
     (appendixPage || null) === state.detectedAppendixPage;
@@ -1474,9 +1508,16 @@ async function runSplit(item: Zotero.Item, state: ReaderSplitState) {
   const generatedOutputs: GeneratedOutput[] = [];
   for (const output of plan.outputs) {
     const outputBytes = await createSplitPDF(sourceDoc, output);
-    const outputPath = await createUniqueSiblingPath(sourcePath, output.filename);
+    const outputPath = await createUniqueSiblingPath(
+      sourcePath,
+      output.filename,
+    );
     await IOUtils.write(outputPath, outputBytes);
-    const createdItem = await attachGeneratedFile(item, outputPath, output.title);
+    const createdItem = await attachGeneratedFile(
+      item,
+      outputPath,
+      output.title,
+    );
     const createdFilename = getLeafFilename(outputPath);
     createdFiles.push(createdFilename);
     generatedOutputs.push({
@@ -1537,11 +1578,17 @@ async function collectGeneratedOutputs(item: Zotero.Item) {
     .sort((left, right) => left.filename.localeCompare(right.filename));
 }
 
-async function refreshGeneratedOutputs(item: Zotero.Item, state: ReaderSplitState) {
+async function refreshGeneratedOutputs(
+  item: Zotero.Item,
+  state: ReaderSplitState,
+) {
   state.generatedOutputs = await collectGeneratedOutputs(item);
 }
 
-async function deleteGeneratedOutputs(item: Zotero.Item, state: ReaderSplitState) {
+async function deleteGeneratedOutputs(
+  item: Zotero.Item,
+  state: ReaderSplitState,
+) {
   const generatedOutputs = await collectGeneratedOutputs(item);
   if (!generatedOutputs.length) {
     throw new Error(getString("tool-status-delete-generated-none"));
@@ -1602,20 +1649,21 @@ async function readPDFBytes(path: string) {
   }
   if (typeof ArrayBuffer !== "undefined" && ArrayBuffer.isView(bytes as any)) {
     const view = bytes as ArrayBufferView;
-    return new Uint8Array(view.buffer.slice(view.byteOffset, view.byteOffset + view.byteLength));
+    return new Uint8Array(
+      view.buffer.slice(view.byteOffset, view.byteOffset + view.byteLength),
+    );
   }
   if (typeof bytes === "string") {
-    return Uint8Array.from(Array.from(bytes, (char) => char.charCodeAt(0) & 0xff));
+    return Uint8Array.from(
+      Array.from(bytes, (char) => char.charCodeAt(0) & 0xff),
+    );
   }
   throw new Error(
     `${getString("tool-status-source-read-failed")} (${Object.prototype.toString.call(bytes)})`,
   );
 }
 
-async function createSplitPDF(
-  sourceDoc: PDFDocument,
-  output: SplitOutputSpec,
-) {
+async function createSplitPDF(sourceDoc: PDFDocument, output: SplitOutputSpec) {
   const targetDoc = await PDFDocument.create();
   const pageIndexes = Array.from(
     { length: output.endPage - output.startPage + 1 },
@@ -1874,15 +1922,22 @@ function renderSection(
     const modeGroup = createHTML(doc, "div");
     modeGroup.className = `${ROOT_CLASS}__mode-group`;
     modeGroup.appendChild(
-      createModeOption(doc, item.id, "main", state.mode, getString("mode-main"), () => {
-        state.mode = "main";
-        state.error = "";
-        state.generatedOutputs = [];
-        if (state.status === "error") {
-          state.status = "ready";
-        }
-        renderSection(body, item, state, options);
-      }),
+      createModeOption(
+        doc,
+        item.id,
+        "main",
+        state.mode,
+        getString("mode-main"),
+        () => {
+          state.mode = "main";
+          state.error = "";
+          state.generatedOutputs = [];
+          if (state.status === "error") {
+            state.status = "ready";
+          }
+          renderSection(body, item, state, options);
+        },
+      ),
     );
     modeGroup.appendChild(
       createModeOption(
@@ -2056,7 +2111,9 @@ function renderSection(
         } catch (error) {
           state.status = "error";
           state.error =
-            error instanceof Error ? error.message : getString("tool-status-error");
+            error instanceof Error
+              ? error.message
+              : getString("tool-status-error");
           renderSection(body, item, state, options);
         }
       },
@@ -2077,8 +2134,8 @@ function renderSection(
     isLightweightGeneratedView
       ? getString("action-scan-anyway")
       : state.status === "scanning"
-      ? getString("action-scanning")
-      : getString("action-rescan"),
+        ? getString("action-scanning")
+        : getString("action-rescan"),
     async () => {
       state.generatedOutputs = [];
       renderBusy(body, options, getString("tool-status-scanning"));
@@ -2090,22 +2147,28 @@ function renderSection(
   actionRow.appendChild(scanButton);
 
   if (!isLightweightGeneratedView) {
-    const splitButton = createButton(doc, getString("action-split"), async () => {
-      try {
-        state.status = "scanning";
-        state.error = "";
-        state.generatedOutputs = [];
-        state.message = getString("tool-status-splitting");
-        renderBusy(body, options, state.message);
-        await runSplit(item, state);
-        renderSection(body, item, state, options);
-      } catch (error) {
-        state.status = "error";
-        state.error =
-          error instanceof Error ? error.message : getString("tool-status-error");
-        renderSection(body, item, state, options);
-      }
-    });
+    const splitButton = createButton(
+      doc,
+      getString("action-split"),
+      async () => {
+        try {
+          state.status = "scanning";
+          state.error = "";
+          state.generatedOutputs = [];
+          state.message = getString("tool-status-splitting");
+          renderBusy(body, options, state.message);
+          await runSplit(item, state);
+          renderSection(body, item, state, options);
+        } catch (error) {
+          state.status = "error";
+          state.error =
+            error instanceof Error
+              ? error.message
+              : getString("tool-status-error");
+          renderSection(body, item, state, options);
+        }
+      },
+    );
     splitButton.disabled = !preview.canSplit || state.status === "scanning";
     splitButton.dataset.variant = "primary";
     actionRow.appendChild(splitButton);
@@ -2119,7 +2182,10 @@ function renderSection(
     }),
   );
   options.setSectionSummary?.(
-    preview.errors[0] || preview.outputs[0]?.filename || preview.notes[0] || state.message,
+    preview.errors[0] ||
+      preview.outputs[0]?.filename ||
+      preview.notes[0] ||
+      state.message,
   );
 }
 

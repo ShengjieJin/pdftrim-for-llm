@@ -42,4 +42,3 @@ jobs:
       - name: Setup JS
         uses: zotero-plugin-dev/workflows/setup-js@main
       - run: npm run test
-

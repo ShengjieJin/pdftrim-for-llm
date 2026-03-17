@@ -1,8 +1,16 @@
 .pdf-split-tool {
   --pdf-split-accent: #2f6fed;
   --pdf-split-accent-soft: #edf4ff;
-  --pdf-split-border: color-mix(in srgb, var(--fill-secondary, #808080) 16%, white);
-  --pdf-split-border-strong: color-mix(in srgb, var(--pdf-split-accent) 22%, white);
+  --pdf-split-border: color-mix(
+    in srgb,
+    var(--fill-secondary, #808080) 16%,
+    white
+  );
+  --pdf-split-border-strong: color-mix(
+    in srgb,
+    var(--pdf-split-accent) 22%,
+    white
+  );
   --pdf-split-surface: #fff;
   --pdf-split-surface-soft: #f7f9fc;
   --pdf-split-text-muted: var(--fill-secondary, #667085);
@@ -74,7 +82,11 @@
   padding: 12px;
   border: 1px solid var(--pdf-split-border);
   border-radius: 12px;
-  background: linear-gradient(180deg, var(--pdf-split-surface), var(--pdf-split-surface-soft));
+  background: linear-gradient(
+    180deg,
+    var(--pdf-split-surface),
+    var(--pdf-split-surface-soft)
+  );
 }
 
 .pdf-split-tool__card-title {
@@ -130,7 +142,8 @@
 }
 
 .pdf-split-tool__input {
-  border: 1px solid color-mix(in srgb, var(--fill-secondary, #808080) 20%, white);
+  border: 1px solid
+    color-mix(in srgb, var(--fill-secondary, #808080) 20%, white);
   padding: 0 11px;
   background: rgba(255, 255, 255, 0.92);
 }

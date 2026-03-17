@@ -66,15 +66,13 @@
 
 ## 🖼️ 截图
 
-
 | 自动定位 PDF 中的 Reference 和 Appendix | 点击 `jump` 可直接跳转到对应页码；若定位结果不够准确，也支持手动微调 |
-| --- | --- |
-| ![Sidebar placeholder](assets/1.png) | ![Detection placeholder](assets/2.png) |
+| --------------------------------------- | -------------------------------------------------------------------- |
+| ![Sidebar placeholder](assets/1.png)    | ![Detection placeholder](assets/2.png)                               |
 
 | 点击 `Split PDF` 可一键分割 PDF；点击 `Open PDF` 可直接打开分割后的文件 | 在将分割后的正文 PDF 与 LLM 交互完成后，可点击 `Delete Generated PDFs` 一键清理所有生成文件 |
-| --- | --- |
-| ![Preview placeholder](assets/3.png) | ![Attachments placeholder](assets/4.png) |
-
+| ----------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- |
+| ![Preview placeholder](assets/3.png)                                    | ![Attachments placeholder](assets/4.png)                                                    |
 
 ## 📦 安装方式
 
